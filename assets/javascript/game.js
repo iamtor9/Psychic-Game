@@ -1,51 +1,53 @@
-var lettersGuessed = [];
-var guessesLeft = 10;
-var wins = 0;
+const computerGuess = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z",];
 
-//use Math.random method along with String.fromCharCode method to generate a random letter
-var computerGuess =
+let lettersGuessed = [];
+let guessesLeft = 10;
+let wins = 0;
+
+
+let computerGuess =
     String.fromCharCode(
-        Math.round(Math.random() * 26) + 97
+        Math.round(Math.random() * 26)
     );
 
 console.log(computerGuess);
-//function to capture user's keyboard input and make the input lowercase
-document.onkeydown = function(event) {
-    var keyPress = (String.fromCharCode(event.keyCode)).toLowerCase();
 
-    //document.getElementById('guess').innerHTML = keyPress;
+document.onkeydown = function(event) {
+    let keyPress = (String.fromCharCode(event.keyCode)).toLowerCase();
+
+document.getElementById('guess').innerHTML = keyPress;
     addLetter(keyPress);
 
 }
 
-//function to catch repeat letters and/or add players guess to lettersGuessed string
+
 function addLetter (usersKeypress) {
 
 
-    var repeatGuess = lettersGuessed.some(function(item){
+    let repeatGuess = lettersGuessed.some(function(item){
         return item === usersKeypress;
     })
 
-    //alert player if the above code is true.
+   
     if (repeatGuess) {
-        alert(usersKeypress + " already guessed. Try again!");
+        alert(usersKeypress + " guess again!");
 
-        //if it is not a repeat guess, check if it's in word
+       
     } else {
         lettersGuessed.push(usersKeypress);
         console.log(lettersGuessed);
 
-        //show user's input in browser
+        
         showLettersGuessed();
-        //is user's input a match to computer guess
+        
         guessMatch(usersKeypress);
     }
 
 }
 
-//function to show letters guessed in browser
+
 function showLettersGuessed() {
-    var tempStr = lettersGuessed.join(", ");
+    let tempStr = lettersGuessed.join(", ");
     document.getElementById("playersGuess").innerHTML = tempStr;
 }
 
@@ -56,13 +58,13 @@ function guessMatch (character) {
 
     if (character === computerGuess) {
 
-        alert("You win!");
+        alert("You are a winner!");
         wins = wins + 1;
         showWins();
-        //toggleGame();
+       
 
     } else if (guessesLeft === 0) {
-        alert("Aw man! Lets start over.");
+        alert("begin again.");
         resetVariables ();
 
     } else {
@@ -71,12 +73,12 @@ function guessMatch (character) {
     }
 }
 
-//function to show wins
+
 function showWins() {
     document.getElementById("numWins").innerHTML = wins;
 }
 
-//function to show guesses remaining
+
 function showGuessesRemaining() {
     document.getElementById("numGuesses").innerHTML = guessesLeft;
 }
@@ -96,4 +98,3 @@ function startGame() {
 
 startGame();
 
-//TODO make the computer guess another random letter once game is lost.
